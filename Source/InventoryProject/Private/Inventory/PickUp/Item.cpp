@@ -1,14 +1,41 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿#include "InventoryProject/Public/Inventory/PickUp/Item.h"
+#include "Components/WidgetComponent.h"
 
 
-#include "InventoryProject/Public/Inventory/PickUp/Item.h"
-
-
-// Sets default values
 AItem::AItem()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
+
+	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
+
+	SetRootComponent(MeshComponent);
+	WidgetComponent -> SetupAttachment(MeshComponent);
+}
+
+void AItem::SetItemDetails(FItemDetails NewDetails)
+{
+	this -> ID = NewDetails.ID;
+	this -> Num = NewDetails.Num;
+	this -> ItemName = NewDetails.ItemName;
+	this -> ItemDescription = NewDetails.ItemDescription;
+	this -> ItemIcon = NewDetails.ItemIcon;
+	MeshComponent -> SetStaticMesh(NewDetails.MeshComponent);
+}
+
+FItemDetails AItem::GetItemDetails()
+{
+	FItemDetails SelfDetails;
+
+	SelfDetails.ID = this -> ID;
+	SelfDetails.Num = this -> Num;
+	SelfDetails.ItemName = this -> ItemName;
+	SelfDetails.ItemDescription = this -> ItemDescription;
+	SelfDetails.ItemIcon = this -> ItemIcon;
+	SelfDetails.MeshComponent = MeshComponent -> GetStaticMesh();
+	
+	return SelfDetails;
 }
 
  
