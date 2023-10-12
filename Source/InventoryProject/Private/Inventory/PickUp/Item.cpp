@@ -38,5 +38,10 @@ FItemDetails AItem::GetItemDetails()
 	return SelfDetails;
 }
 
+void AItem::SetWidgetVisbility(bool NewValue)
+{
+	WidgetComponent -> SetVisibility(NewValue);
+}
+
  
 

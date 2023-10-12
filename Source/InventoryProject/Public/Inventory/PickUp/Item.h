@@ -27,6 +27,9 @@ public:
 	void SetItemDetails(FItemDetails NewDetails);
 
 	FItemDetails GetItemDetails();
+
+	void SetWidgetVisbility(bool NewValue);
+
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadOnly)
 	FText ItemName;
