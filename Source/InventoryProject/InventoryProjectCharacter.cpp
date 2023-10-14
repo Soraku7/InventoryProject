@@ -9,6 +9,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Inventory/InventoryComponent.h"
+#include "Components/WidgetComponent.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -51,6 +53,9 @@ AInventoryProjectCharacter::AInventoryProjectCharacter()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
 	InventoryComp = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComp"));
+	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
+
+	WidgetComponent ->SetupAttachment(CameraBoom);
 }
 
 void AInventoryProjectCharacter::BeginPlay()

@@ -24,12 +24,12 @@ void UInventoryComponent::GetAllItem()
 		if(FVector::Dist(i -> GetActorLocation() , GetOwner() -> GetActorLocation()) <= PickUpDistance)
 		{
 			AddItemInDistance(Cast<AItem>(i));
-			Cast<AItem>(i) -> SetWidgetVisbility(true);
+			Cast<AItem>(i) -> SetWidgetVisibility(true);
 		}
 		else
 		{
 			DeleteItemNotInDistance(Cast<AItem>(i));
-			Cast<AItem>(i) -> SetWidgetVisbility(false);
+			Cast<AItem>(i) -> SetWidgetVisibility(false);
 
 		}
 	}
@@ -52,7 +52,7 @@ void UInventoryComponent::DeleteItemNotInDistance(AItem* Item)
 	}
 }
 
-bool UInventoryComponent::CheckIfAlreadyInArray(AItem* Item)
+bool UInventoryComponent::CheckIfAlreadyInArray(AItem* Item) const
 {
 	if(AllInDistanceItems.Find(Item) == INDEX_NONE)
 	{

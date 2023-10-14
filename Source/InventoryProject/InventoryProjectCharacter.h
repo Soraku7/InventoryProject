@@ -5,10 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
-#include "Inventory/InventoryComponent.h"
 #include "InventoryProjectCharacter.generated.h"
 
-
+class UWidgetComponent;
+class UInventoryComponent;
 UCLASS(config=Game)
 class AInventoryProjectCharacter : public ACharacter
 {
@@ -67,5 +67,8 @@ public:
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	UInventoryComponent* InventoryComp;
+	
+	UPROPERTY(EditAnywhere , BlueprintReadWrite)
+	UWidgetComponent* WidgetComponent;
 };
 

@@ -28,7 +28,7 @@ public:
 
 	FItemDetails GetItemDetails();
 
-	void SetWidgetVisbility(bool NewValue);
+	void SetWidgetVisibility(bool NewValue);
 
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadOnly)
