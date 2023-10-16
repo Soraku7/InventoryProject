@@ -8,13 +8,14 @@
 #include "InventoryComponent.generated.h"
 
 
+class UInventoryWidget;
 class UOutsideItemWidget;
 class AItem;
 
 struct FOutsideItem
 {
 	FItemDetails ItemDetails;
-	UOutsideItemWidget* Widget;
+	UOutsideItemWidget* Widget = nullptr;
 	
 };
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -25,6 +26,8 @@ class INVENTORYPROJECT_API UInventoryComponent : public UActorComponent
 public:
 	// Sets default values for this component's properties
 	UInventoryComponent();
+
+	void Init();
 
 	void GetAllItem();
 
@@ -37,7 +40,8 @@ public:
 	int32 FindIndexOfInDistanceArray(AItem* Item);
 
 	void ConvertItemToOutsideItem();
-	
+
+	void UpdateOutsideBox();
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;
@@ -52,4 +56,6 @@ protected:
 private:
 	TArray<AItem*> AllInDistanceItems;
 	TArray<FOutsideItem> OutsideItemBox;
+
+	UInventoryWidget* InventoryWidget;
 };

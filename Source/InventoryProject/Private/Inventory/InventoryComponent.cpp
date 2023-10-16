@@ -2,8 +2,12 @@
 
 
 #include "InventoryProject/Public/Inventory/InventoryComponent.h"
+
+#include "Components/WidgetComponent.h"
 #include "Inventory/PickUp/Item.h"
+#include "Inventory/Widgets/InventoryWidget.h"
 #include "Inventory/Widgets/OutsideItemWidget.h"
+#include "InventoryProject/InventoryProjectCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -14,22 +18,28 @@ UInventoryComponent::UInventoryComponent()
 	
 }
 
+void UInventoryComponent::Init()
+{
+	InventoryWidget = Cast<UInventoryWidget>(Cast<AInventoryProjectCharacter>(GetOwner())-> GetWidgetComponent() -> GetWidget());
+	InventoryWidget -> Init();
+}
+
 void UInventoryComponent::GetAllItem()
 {
 	TArray<AActor*> AllItems;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld() , AItem::StaticClass() , AllItems);
 	
-	for(auto i : AllItems)
+	for(size_t i = 0; i < AllItems.Num(); i++)
 	{
-		if(FVector::Dist(i -> GetActorLocation() , GetOwner() -> GetActorLocation()) <= PickUpDistance)
+		if(FVector::Dist(AllItems[i] -> GetActorLocation() , GetOwner() -> GetActorLocation()) <= PickUpDistance)
 		{
-			AddItemInDistance(Cast<AItem>(i));
-			Cast<AItem>(i) -> SetWidgetVisibility(true);
+			AddItemInDistance(Cast<AItem>(AllItems[i]));
+			Cast<AItem>(AllItems[i]) -> SetWidgetVisibility(true);
 		}
 		else
 		{
-			DeleteItemNotInDistance(Cast<AItem>(i));
-			Cast<AItem>(i) -> SetWidgetVisibility(false);
+			DeleteItemNotInDistance(Cast<AItem>(AllItems[i]));
+			Cast<AItem>(AllItems[i]) -> SetWidgetVisibility(false);
 
 		}
 	}
@@ -49,6 +59,7 @@ void UInventoryComponent::DeleteItemNotInDistance(AItem* Item)
 	if(FindIndexOfInDistanceArray(Item) >= 0)
 	{
 		AllInDistanceItems.RemoveAt(FindIndexOfInDistanceArray(Item));
+		ConvertItemToOutsideItem();
 	}
 }
 
@@ -78,15 +89,30 @@ void UInventoryComponent::ConvertItemToOutsideItem()
 {
 	OutsideItemBox.Empty();
 	
-	for(auto i : AllInDistanceItems)
+	for(size_t i = 0 ; i < AllInDistanceItems.Num() ; i ++)
 	{
 		FOutsideItem NewOutsideItem;
-		NewOutsideItem.ItemDetails = i -> GetItemDetails();
+		NewOutsideItem.ItemDetails = AllInDistanceItems[i] -> GetItemDetails();
 		NewOutsideItem.Widget = nullptr;
 		OutsideItemBox.Add(NewOutsideItem);
 
 		
-		UE_LOG(LogTemp , Error , TEXT("Add Item -> %s") , *i ->GetName());
+		UE_LOG(LogTemp , Error , TEXT("Add Item -> %s") , *AllInDistanceItems[i] ->GetName());
+	}
+
+	UpdateOutsideBox();
+}
+
+void UInventoryComponent::UpdateOutsideBox()
+{
+	InventoryWidget -> ClearWidgetNotInBox();
+	
+	for(size_t i = 0 ; i < OutsideItemBox.Num() ; i ++)
+	{
+		if(OutsideItemBox[i].Widget == nullptr)
+		{
+			InventoryWidget -> CreateNewOutsideItemWidget(OutsideItemBox[i]);
+		}
 	}
 }
 

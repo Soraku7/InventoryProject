@@ -71,6 +71,8 @@ void AInventoryProjectCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	InventoryComp -> Init();
 }
 
 //////////////////////////////////////////////////////////////////////////

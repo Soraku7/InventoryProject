@@ -64,6 +64,10 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+public:
+	
+	UWidgetComponent* GetWidgetComponent(){return WidgetComponent;};
+	
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	UInventoryComponent* InventoryComp;

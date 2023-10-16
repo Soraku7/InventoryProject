@@ -6,9 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "OutsideItemWidget.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class INVENTORYPROJECT_API UOutsideItemWidget : public UUserWidget
 {
