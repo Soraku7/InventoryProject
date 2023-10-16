@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "InventoryWiget.generated.h"
+#include "InventoryWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class INVENTORYPROJECT_API UInventoryWiget : public UUserWidget
+class INVENTORYPROJECT_API UInventoryWidget : public UUserWidget
 {
 	GENERATED_BODY()
 };
