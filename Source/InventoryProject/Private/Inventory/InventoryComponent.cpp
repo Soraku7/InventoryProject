@@ -37,31 +37,41 @@ void UInventoryComponent::GetAllItem()
 
 void UInventoryComponent::AddItemInDistance(AItem* Item)
 {
-	if(!CheckIfAlreadyInArray(Item))
-	{
-		AllInDistanceItems.Add(Item);
-		ConvertItemToOutsideItem();
-	}
+	if(CheckIfAlreadyInArray(Item))
+		return;
+
+	AllInDistanceItems.Add(Item);
+	ConvertItemToOutsideItem();
 }
 
 void UInventoryComponent::DeleteItemNotInDistance(AItem* Item)
 {
-	if(CheckIfAlreadyInArray(Item))
+	if(FindIndexOfInDistanceArray(Item) >= 0)
 	{
-		AllInDistanceItems.Remove(Item);
+		AllInDistanceItems.RemoveAt(FindIndexOfInDistanceArray(Item));
 	}
 }
 
-bool UInventoryComponent::CheckIfAlreadyInArray(AItem* Item) const
+bool UInventoryComponent::CheckIfAlreadyInArray(AItem* Item) 
 {
-	if(AllInDistanceItems.Find(Item) == INDEX_NONE)
-	{
-		return false;
-	}
-	else
+	if(FindIndexOfInDistanceArray(Item) >=0)
 	{
 		return true;
 	}
+	return false;
+}
+
+int32 UInventoryComponent::FindIndexOfInDistanceArray(AItem* Item)
+{
+	for(size_t i = 0; i < AllInDistanceItems.Num() ; i ++)
+	{
+		if(AllInDistanceItems[i] == Item)
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }
 
 void UInventoryComponent::ConvertItemToOutsideItem()

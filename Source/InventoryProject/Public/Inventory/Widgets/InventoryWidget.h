@@ -13,4 +13,6 @@ UCLASS()
 class INVENTORYPROJECT_API UInventoryWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+
 };

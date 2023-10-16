@@ -32,7 +32,9 @@ public:
 	
 	void DeleteItemNotInDistance(AItem* Item);
 
-	bool CheckIfAlreadyInArray(AItem* Item) const;
+	bool CheckIfAlreadyInArray(AItem* Item);
+
+	int32 FindIndexOfInDistanceArray(AItem* Item);
 
 	void ConvertItemToOutsideItem();
 	
