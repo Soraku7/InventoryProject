@@ -19,7 +19,7 @@ public:
 	
 	void CreateNewOutsideItemWidget(FOutsideItem& OutsideItem);
 
-	void ClearWidgetNotInBox();
+	void ClearWidgetBox();
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	TSubclassOf<UOutsideItemWidget> OutsideWidgetsClass;

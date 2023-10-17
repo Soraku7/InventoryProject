@@ -105,7 +105,7 @@ void UInventoryComponent::ConvertItemToOutsideItem()
 
 void UInventoryComponent::UpdateOutsideBox()
 {
-	InventoryWidget -> ClearWidgetNotInBox();
+	InventoryWidget -> ClearWidgetBox();
 	
 	for(size_t i = 0 ; i < OutsideItemBox.Num() ; i ++)
 	{

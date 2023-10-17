@@ -6,9 +6,24 @@
 #include "Blueprint/UserWidget.h"
 #include "OutsideItemWidget.generated.h"
 
+struct FItemDetails;
+class UImage;
+class UTextBlock;
 
 UCLASS()
 class INVENTORYPROJECT_API UOutsideItemWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+	void Init();
+	
+	void SetWidgetStyle(FItemDetails& Details);
+
+protected:
+	UImage* ItemIcon;
+	UTextBlock* ItemName;
+	UTextBlock* ItemDescription;
+	UTextBlock* ItemNum;
+	
 };

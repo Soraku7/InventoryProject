@@ -15,12 +15,15 @@ void UInventoryWidget::CreateNewOutsideItemWidget(FOutsideItem& OutsideItem)
 {
 	auto OutsideWidget = Cast<UOutsideItemWidget>(CreateWidget(ScrollBox , OutsideWidgetsClass));
 
+	OutsideWidget -> Init();
+	OutsideWidget -> SetWidgetStyle(OutsideItem.ItemDetails);
+	
 	OutsideItem.Widget = OutsideWidget;
 
-	ScrollBox -> AddChild(OutsideWidget); 
+	ScrollBox -> AddChild(OutsideWidget);
 }
 
-void UInventoryWidget::ClearWidgetNotInBox()
+void UInventoryWidget::ClearWidgetBox()
 {
 	auto Widgets = ScrollBox -> GetAllChildren();
 	
