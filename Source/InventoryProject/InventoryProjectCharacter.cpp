@@ -56,6 +56,8 @@ AInventoryProjectCharacter::AInventoryProjectCharacter()
 	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
 
 	WidgetComponent ->SetupAttachment(CameraBoom);
+	WidgetComponent ->SetVisibility(false);
+	
 }
 
 void AInventoryProjectCharacter::BeginPlay()
@@ -73,6 +75,7 @@ void AInventoryProjectCharacter::BeginPlay()
 	}
 
 	InventoryComp -> Init();
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,6 +96,7 @@ void AInventoryProjectCharacter::SetupPlayerInputComponent(class UInputComponent
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AInventoryProjectCharacter::Look);
 
+		EnhancedInputComponent -> BindAction(Inventory , ETriggerEvent::Started, InventoryComp , &UInventoryComponent::ToggleInventoryWidget);
 	}
 
 }

@@ -42,6 +42,8 @@ public:
 	void ConvertItemToOutsideItem();
 
 	void UpdateOutsideBox();
+
+	void ToggleInventoryWidget();
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;

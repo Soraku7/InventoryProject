@@ -116,6 +116,27 @@ void UInventoryComponent::UpdateOutsideBox()
 	}
 }
 
+void UInventoryComponent::ToggleInventoryWidget()
+{
+	auto WidgetComponent = Cast<AInventoryProjectCharacter>(GetOwner()) -> GetWidgetComponent();
+	if(WidgetComponent->IsVisible())
+	{
+		WidgetComponent -> SetVisibility(false);
+		Cast<APlayerController>(Cast<AInventoryProjectCharacter>(GetOwner())
+			-> GetController()) -> SetInputMode(FInputModeGameOnly());
+		Cast<APlayerController>(Cast<AInventoryProjectCharacter>
+			(GetOwner()) -> GetController()) ->SetShowMouseCursor(false);
+	}
+	else
+	{
+		WidgetComponent ->SetVisibility(true);
+		Cast<APlayerController>(Cast<AInventoryProjectCharacter>(GetOwner())
+			-> GetController()) -> SetInputMode(FInputModeGameAndUI());
+		Cast<APlayerController>(Cast<AInventoryProjectCharacter>
+			(GetOwner()) -> GetController()) ->SetShowMouseCursor(true);
+	}	
+}
+
 
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
