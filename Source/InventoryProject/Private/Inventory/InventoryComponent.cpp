@@ -3,6 +3,7 @@
 
 #include "InventoryProject/Public/Inventory/InventoryComponent.h"
 
+#include "IDetailTreeNode.h"
 #include "Components/WidgetComponent.h"
 #include "Inventory/PickUp/Item.h"
 #include "Inventory/Widgets/InventoryWidget.h"
@@ -91,12 +92,17 @@ void UInventoryComponent::ConvertItemToOutsideItem()
 	
 	for(size_t i = 0 ; i < AllInDistanceItems.Num() ; i ++)
 	{
-		FOutsideItem NewOutsideItem;
-		NewOutsideItem.ItemDetails = AllInDistanceItems[i] -> GetItemDetails();
-		NewOutsideItem.Widget = nullptr;
-		OutsideItemBox.Add(NewOutsideItem);
+		if(LeachSameIDItem(AllInDistanceItems[i] -> GetItemDetails()))
+		{
+		}
+		else
+		{
+			FOutsideItem NewOutsideItem;
+			NewOutsideItem.ItemDetails = AllInDistanceItems[i] -> GetItemDetails();
+			NewOutsideItem.Widget = nullptr;
+			OutsideItemBox.Add(NewOutsideItem);
+		}
 
-		
 		UE_LOG(LogTemp , Error , TEXT("Add Item -> %s") , *AllInDistanceItems[i] ->GetName());
 	}
 
@@ -112,8 +118,24 @@ void UInventoryComponent::UpdateOutsideBox()
 		if(OutsideItemBox[i].Widget == nullptr)
 		{
 			InventoryWidget -> CreateNewOutsideItemWidget(OutsideItemBox[i]);
+			UE_LOG(LogTemp , Error , TEXT("ItemDetails.Num -> %d") , OutsideItemBox[i].ItemDetails.Num)
 		}
 	}
+}
+
+bool UInventoryComponent::LeachSameIDItem(FItemDetails ItemDetail)
+{
+	
+	for(size_t i = 0 ; i < OutsideItemBox.Num() ; i ++)
+	{
+		if(OutsideItemBox[i].ItemDetails.ID == ItemDetail.ID)
+		{
+			OutsideItemBox[i].ItemDetails.Num += ItemDetail.Num;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void UInventoryComponent::ToggleInventoryWidget()

@@ -43,6 +43,8 @@ public:
 
 	void UpdateOutsideBox();
 
+	bool LeachSameIDItem(FItemDetails ItemDetail);
+
 	void ToggleInventoryWidget();
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,

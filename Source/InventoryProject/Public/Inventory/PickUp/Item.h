@@ -31,16 +31,16 @@ public:
 	void SetWidgetVisibility(bool NewValue);
 
 protected:
-	UPROPERTY(EditAnywhere , BlueprintReadOnly)
+	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	FText ItemName;
 
-	UPROPERTY(EditAnywhere , BlueprintReadOnly)
+	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	FText ItemDescription;
 
-	UPROPERTY(EditAnywhere , BlueprintReadOnly)
+	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	UTexture2D* ItemIcon;
 
-	UPROPERTY(EditAnywhere , BlueprintReadOnly)
+	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	UStaticMeshComponent* MeshComponent;
 
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
