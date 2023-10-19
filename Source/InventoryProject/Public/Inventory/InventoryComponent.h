@@ -10,6 +10,7 @@
 
 class UInventoryWidget;
 class UOutsideItemWidget;
+class UInsideItemWidget;
 class AItem;
 
 struct FOutsideItem
@@ -17,6 +18,12 @@ struct FOutsideItem
 	FItemDetails ItemDetails;
 	UOutsideItemWidget* Widget = nullptr;
 	
+};
+
+struct FInsideItem
+{
+	FItemDetails ItemDetails;
+	UInsideItemWidget* Widget = nullptr;
 };
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class INVENTORYPROJECT_API UInventoryComponent : public UActorComponent
@@ -57,9 +64,14 @@ protected:
 
 	UPROPERTY(EditAnywhere , BlueprintReadOnly)
 	double PickUpDistance = 300.f;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite)
+	FVector2D InventoryMaxStorage = FVector2D(5 , 5);
+
 private:
 	TArray<AItem*> AllInDistanceItems;
 	TArray<FOutsideItem> OutsideItemBox;
-
+	TArray<FInsideItem> InsideItemBox;
+	
 	UInventoryWidget* InventoryWidget;
 };

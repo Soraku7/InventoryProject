@@ -4,6 +4,7 @@
 #include "InventoryProject/Public/Inventory/InventoryComponent.h"
 
 #include "IDetailTreeNode.h"
+#include "PropertyEditorModule.h"
 #include "Components/WidgetComponent.h"
 #include "Inventory/PickUp/Item.h"
 #include "Inventory/Widgets/InventoryWidget.h"
@@ -23,6 +24,18 @@ void UInventoryComponent::Init()
 {
 	InventoryWidget = Cast<UInventoryWidget>(Cast<AInventoryProjectCharacter>(GetOwner())-> GetWidgetComponent() -> GetWidget());
 	InventoryWidget -> Init();
+
+	FItemDetails NewDetail;
+	FInsideItem NewInsideItem;
+
+	NewInsideItem.ItemDetails = NewDetail;
+
+	for(size_t i = 0 ; i < InventoryMaxStorage.X * InventoryMaxStorage.Y ; i ++)
+	{
+		InsideItemBox.Add(NewInsideItem);
+	}
+
+	InventoryWidget -> InitInsideItemBox(InventoryMaxStorage , InsideItemBox);
 }
 
 void UInventoryComponent::GetAllItem()
