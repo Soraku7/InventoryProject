@@ -58,6 +58,11 @@ public:
 
 	void ToggleInventoryWidget();
 
+	
+	/**
+	 * 添加到内部背包
+	 * @param Detail 
+	 */
 	void AddToInsideBox(FItemDetails Detail);
 
 	int32 FindIndexCouldSaveItem();
@@ -73,6 +78,8 @@ public:
 	void PickUpByKey();
 	
 	bool CheckAlreadyInInventory(FItemDetails Details);
+
+	void PickUpByWidget(UOutsideItemWidget* OutsideItemWidget);
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;

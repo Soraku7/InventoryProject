@@ -269,6 +269,26 @@ bool UInventoryComponent::CheckAlreadyInInventory(FItemDetails Details)
 	return false;
 }
 
+void UInventoryComponent::PickUpByWidget(UOutsideItemWidget* OutsideItemWidget)
+{
+	int32 ID = 0;
+	for(size_t i = 0 ; i < OutsideItemBox.Num() ; i ++)
+	{
+		if(OutsideItemBox[i].Widget == OutsideItemWidget)
+		{
+			ID = OutsideItemBox[i].ItemDetails.ID;
+		}
+	}
+	
+	while(FindCloseItem(ID) != nullptr)
+	{
+		AddToInsideBox(FindCloseItem(ID) -> GetItemDetails());
+		FindCloseItem(ID) -> Destroy();
+		DeleteItemNotInDistance(FindCloseItem(ID));
+	}
+	
+}
+
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {

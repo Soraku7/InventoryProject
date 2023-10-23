@@ -6,6 +6,7 @@
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "Inventory/InventoryComponent.h"
+#include "InventoryProject/InventoryProjectCharacter.h"
 
 void UOutsideItemWidget::Init()
 {
@@ -21,4 +22,9 @@ void UOutsideItemWidget::SetWidgetStyle(FItemDetails& Details)
 	this -> ItemName -> SetText(Details.ItemName);
 	this -> ItemDescription -> SetText(Details.ItemDescription);
 	this -> ItemNum -> SetText(FText::FromString(FString::FormatAsNumber(Details.Num)));
+}
+
+void UOutsideItemWidget::WhenClick()
+{
+	Cast<AInventoryProjectCharacter>(GetOwningPlayer() -> GetCharacter()) -> GetInventoryComponent() -> PickUpByWidget(this);
 }

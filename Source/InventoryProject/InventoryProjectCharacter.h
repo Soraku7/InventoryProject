@@ -71,7 +71,8 @@ public:
 
 public:
 	
-	UWidgetComponent* GetWidgetComponent(){return WidgetComponent;};
+	UWidgetComponent* GetWidgetComponent(){return WidgetComponent;}
+	UInventoryComponent* GetInventoryComponent(){return InventoryComp;}
 	
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)

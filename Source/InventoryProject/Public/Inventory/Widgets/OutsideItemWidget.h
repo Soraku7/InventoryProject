@@ -20,6 +20,8 @@ public:
 	
 	void SetWidgetStyle(FItemDetails& Details);
 
+	UFUNCTION(BlueprintCallable)
+	void WhenClick();
 protected:
 	UImage* ItemIcon;
 	UTextBlock* ItemName;
