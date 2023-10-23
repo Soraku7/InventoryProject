@@ -65,3 +65,12 @@ void UInventoryWidget::InitInsideItemBox(FVector2D InventoryMaxStorage ,  TArray
 	
 	
 }
+
+void UInventoryWidget::RefreshInsideItemBox(TArray<FInsideItem>& InsideItemBox)
+{
+	for(size_t i = 0 ; i < InsideItemBox.Num() ; i ++)
+	{
+		InsideItemBox[i].Widget -> Init();
+		InsideItemBox[i].Widget -> SetWidgetStyle(InsideItemBox[i].ItemDetails);
+	}
+}

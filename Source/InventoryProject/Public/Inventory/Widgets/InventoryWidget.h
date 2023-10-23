@@ -25,6 +25,8 @@ public:
 	void ClearWidgetBox();
 
 	void InitInsideItemBox(FVector2D InventoryMaxStorage , TArray<FInsideItem>& InsideItemBox);
+
+	void RefreshInsideItemBox(TArray<FInsideItem>& InsideItemBox);
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	TSubclassOf<UOutsideItemWidget> OutsideWidgetsClass;

@@ -97,6 +97,7 @@ void AInventoryProjectCharacter::SetupPlayerInputComponent(class UInputComponent
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AInventoryProjectCharacter::Look);
 
 		EnhancedInputComponent -> BindAction(Inventory , ETriggerEvent::Started, InventoryComp , &UInventoryComponent::ToggleInventoryWidget);
+		EnhancedInputComponent -> BindAction(PickUp , ETriggerEvent::Started , InventoryComp , &UInventoryComponent::PickUpByKey);
 	}
 
 }

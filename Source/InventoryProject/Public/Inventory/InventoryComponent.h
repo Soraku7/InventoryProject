@@ -46,6 +46,10 @@ public:
 
 	int32 FindIndexOfInDistanceArray(AItem* Item);
 
+	
+	/**
+	 * 外部Item生成
+	 */
 	void ConvertItemToOutsideItem();
 
 	void UpdateOutsideBox();
@@ -53,6 +57,22 @@ public:
 	bool LeachSameIDItem(FItemDetails ItemDetail);
 
 	void ToggleInventoryWidget();
+
+	void AddToInsideBox(FItemDetails Detail);
+
+	int32 FindIndexCouldSaveItem();
+	
+	/**
+	* 找到最近的物品
+	*/
+	AItem* FindCloseItem(int32 ItemID);
+	
+	/**
+	 * 拾取物品
+	 */
+	void PickUpByKey();
+	
+	bool CheckAlreadyInInventory(FItemDetails Details);
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;

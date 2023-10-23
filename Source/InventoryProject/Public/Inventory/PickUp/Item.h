@@ -7,8 +7,8 @@
 class UWidgetComponent;
 struct FItemDetails
 {
-	int32 ID;
-	int32 Num;
+	int32 ID = -1;
+	int32 Num = 1;
 
 	FText ItemName = FText::FromString("None");
 	FText ItemDescription = FText::FromString("None");
