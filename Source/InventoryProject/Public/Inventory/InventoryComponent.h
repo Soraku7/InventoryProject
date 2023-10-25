@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "PickUp/Item.h"
+#include "Widgets/InsideItemWidget.h"
 #include "InventoryComponent.generated.h"
 
 
@@ -80,6 +81,8 @@ public:
 	bool CheckAlreadyInInventory(FItemDetails Details);
 
 	void PickUpByWidget(UOutsideItemWidget* OutsideItemWidget);
+
+	void SwitchTwoItemDetail(UInsideItemWidget* OriginalWidget , UInsideItemWidget* TargetWidget);
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;

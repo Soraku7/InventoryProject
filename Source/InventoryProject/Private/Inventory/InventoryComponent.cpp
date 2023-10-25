@@ -4,6 +4,7 @@
 #include "InventoryProject/Public/Inventory/InventoryComponent.h"
 
 
+#include "PropertyEditorModule.h"
 #include "Components/WidgetComponent.h"
 #include "Inventory/PickUp/Item.h"
 #include "Inventory/Widgets/InventoryWidget.h"
@@ -289,6 +290,32 @@ void UInventoryComponent::PickUpByWidget(UOutsideItemWidget* OutsideItemWidget)
 	
 }
 
+void UInventoryComponent::SwitchTwoItemDetail(UInsideItemWidget* OriginalWidget, UInsideItemWidget* TargetWidget)
+{
+	int32 IndexOfOriginalWidget;
+	int32 IndexOfTargetWidget;
+
+	for(size_t i = 0 ; i < InsideItemBox.Num() ; i ++)
+	{
+		if(InsideItemBox[i].Widget == OriginalWidget)
+		{
+			IndexOfOriginalWidget = i;
+		}
+		if(InsideItemBox[i].Widget == TargetWidget)
+		{
+			IndexOfTargetWidget = i;
+		}
+	}
+
+	//交换后刷新
+	auto Temp = InsideItemBox[IndexOfOriginalWidget];
+
+	InsideItemBox[IndexOfOriginalWidget].ItemDetails = InsideItemBox[IndexOfTargetWidget].ItemDetails;
+	InsideItemBox[IndexOfTargetWidget].ItemDetails = Temp.ItemDetails;
+
+	InventoryWidget -> RefreshInsideItemBox(InsideItemBox);
+}
+
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {
@@ -302,5 +329,6 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	GetAllItem();
+	InventoryWidget -> TargetWidgetFollowMouse();
 }
 

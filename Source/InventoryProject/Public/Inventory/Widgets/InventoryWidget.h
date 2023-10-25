@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "InventoryWidget.generated.h"
 
+class UInventoryComponent;
 struct FInsideItem;
 class UInsideItemWidget;
 struct FOutsideItem;
@@ -27,6 +28,16 @@ public:
 	void InitInsideItemBox(FVector2D InventoryMaxStorage , TArray<FInsideItem>& InsideItemBox);
 
 	void RefreshInsideItemBox(TArray<FInsideItem>& InsideItemBox);
+
+	void SetTargetWidget(UInsideItemWidget* Widget);
+
+	void TargetWidgetFollowMouse();
+
+	bool GetIsHadWidgetFollowMouse(){return bIsHadWidgetFollowMouse;}
+
+	void ResetTargetWidget();
+	
+	void SwitchToWidget(UInsideItemWidget* InsideWidget);
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	TSubclassOf<UOutsideItemWidget> OutsideWidgetsClass;
@@ -43,4 +54,9 @@ protected:
 private:
 	UScrollBox* ScrollBox;
 	UCanvasPanel* CanvasPanel;
+
+	bool bIsHadWidgetFollowMouse = false;
+	
+	UInsideItemWidget* TargetWidget = nullptr;
+	UInventoryComponent* InventoryComp;
 };

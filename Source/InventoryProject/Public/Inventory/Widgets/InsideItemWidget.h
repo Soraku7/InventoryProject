@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "InsideItemWidget.generated.h"
 
+class UInventoryWidget;
 class UButton;
 class UTextBlock;
 class UImage;
@@ -22,9 +23,27 @@ public:
 	void Init();
 
 	void SetWidgetStyle(FItemDetails& Details);
+
+	void SetInventoryWidget(UInventoryWidget* Widget){InventoryWidget = Widget;}
+
+	FVector2D GetWhenPressedMousePosition(){return WhenPressMousePosition;}
+
+	FVector2D GetSelfPosition(){return SelfPosition;}
+	
+	UFUNCTION(BlueprintCallable)
+	void BeClick();
+
+protected:
+	UPROPERTY(EditAnywhere , BlueprintReadWrite)
+	UTexture2D* EmptyImg;
 	
 private:
 	UImage* ItemIcon;
 	UTextBlock* ItemNum;
 	UButton* ItemButton;
+
+	FVector2D WhenPressMousePosition;
+	FVector2D SelfPosition;
+	
+	UInventoryWidget* InventoryWidget;
 };

@@ -1,17 +1,22 @@
 ﻿
 #include "InventoryProject\Public\Inventory\Widgets\InventoryWidget.h"
 
+#include "PropertyEditorModule.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/ScrollBox.h"
 #include "Inventory/InventoryComponent.h"
 #include "Inventory/Widgets/InsideItemWidget.h"
 #include "Inventory/Widgets/OutsideItemWidget.h"
+#include "InventoryProject/InventoryProjectCharacter.h"
 
 void UInventoryWidget::Init()
 {
 	ScrollBox = Cast<UScrollBox>(this -> GetWidgetFromName("OutsideItemScrollBox"));
 	CanvasPanel = Cast<UCanvasPanel>(this -> GetWidgetFromName("InsideItemCanvasPanel"));
+
+	InventoryComp = Cast<AInventoryProjectCharacter>(GetOwningPlayer() -> GetCharacter()) -> GetInventoryComponent();
 }
 
 void UInventoryWidget::CreateNewOutsideItemWidget(FOutsideItem& OutsideItem)
@@ -47,7 +52,7 @@ void UInventoryWidget::InitInsideItemBox(FVector2D InventoryMaxStorage ,  TArray
 	for(auto &i : InsideItemBox)
 	{
 		auto InsideWidget = Cast<UInsideItemWidget>(CreateWidget(CanvasPanel , InsideWidgetClass));
-
+		InsideWidget -> SetInventoryWidget(this);
 		i.Widget = InsideWidget;
 		CanvasPanel->AddChild(InsideWidget);
 		
@@ -73,4 +78,40 @@ void UInventoryWidget::RefreshInsideItemBox(TArray<FInsideItem>& InsideItemBox)
 		InsideItemBox[i].Widget -> Init();
 		InsideItemBox[i].Widget -> SetWidgetStyle(InsideItemBox[i].ItemDetails);
 	}
+}
+
+void UInventoryWidget::SetTargetWidget(UInsideItemWidget* Widget)
+{
+	TargetWidget = Widget;
+
+	bIsHadWidgetFollowMouse = true;
+}
+
+void UInventoryWidget::TargetWidgetFollowMouse()
+{
+	if(TargetWidget == nullptr) return;
+	
+	auto NowMousePosition = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
+	Cast<UCanvasPanelSlot>(TargetWidget -> Slot) -> SetPosition(NowMousePosition - TargetWidget -> GetWhenPressedMousePosition() + TargetWidget -> GetSelfPosition());
+}
+
+void UInventoryWidget::ResetTargetWidget()
+{
+	TargetWidget -> SetVisibility(ESlateVisibility::Visible);
+	Cast<UCanvasPanelSlot>(TargetWidget -> Slot) -> SetPosition(TargetWidget -> GetSelfPosition());
+	Cast<UCanvasPanelSlot>(TargetWidget -> Slot) -> SetZOrder(0);
+
+	TargetWidget = nullptr;
+	bIsHadWidgetFollowMouse = false;
+}
+
+void UInventoryWidget::SwitchToWidget(UInsideItemWidget* InsideWidget)
+{
+	if(TargetWidget && InsideWidget)
+	{
+		InventoryComp -> SwitchTwoItemDetail(TargetWidget , InsideWidget);
+		ResetTargetWidget();
+	}
+
+	
 }
