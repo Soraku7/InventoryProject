@@ -103,12 +103,15 @@ void UInventoryWidget::TargetWidgetFollowMouse()
 
 void UInventoryWidget::ResetTargetWidget()
 {
+	if(TargetWidget == nullptr) return;
 	TargetWidget -> SetVisibility(ESlateVisibility::Visible);
 	Cast<UCanvasPanelSlot>(TargetWidget -> Slot) -> SetPosition(TargetWidget -> GetSelfPosition());
 	Cast<UCanvasPanelSlot>(TargetWidget -> Slot) -> SetZOrder(0);
 
 	TargetWidget = nullptr;
 	bIsHadWidgetFollowMouse = false;
+
+	DropButton -> SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UInventoryWidget::SwitchToWidget(UInsideItemWidget* InsideWidget)

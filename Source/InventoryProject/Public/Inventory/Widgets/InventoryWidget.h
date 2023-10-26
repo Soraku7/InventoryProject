@@ -39,6 +39,7 @@ public:
 
 	bool GetIsHadWidgetFollowMouse(){return bIsHadWidgetFollowMouse;}
 
+	UFUNCTION(BlueprintCallable)
 	void ResetTargetWidget();
 	
 	void SwitchToWidget(UInsideItemWidget* InsideWidget);
