@@ -316,6 +316,26 @@ void UInventoryComponent::SwitchTwoItemDetail(UInsideItemWidget* OriginalWidget,
 	InventoryWidget -> RefreshInsideItemBox(InsideItemBox);
 }
 
+void UInventoryComponent::DropThisItem(UInsideItemWidget* Widget)
+{
+	for(size_t i = 0 ; i < InsideItemBox.Num() ; i ++)
+	{
+		if(Widget == InsideItemBox[i].Widget)
+		{
+			SpawnItem(InsideItemBox[i].ItemDetails);
+			InsideItemBox[i].ItemDetails.ID = -1;
+			InventoryWidget -> RefreshInsideItemBox(InsideItemBox);
+		}
+	}
+}
+
+void UInventoryComponent::SpawnItem(FItemDetails Details)
+{
+	AItem* DropItem =  GetWorld() -> SpawnActor<AItem>(AItem::StaticClass() , GetOwner() -> GetActorTransform());
+	DropItem -> SetItemDetails(Details);
+	DropItem -> GetMeshComponent() -> SetSimulatePhysics(true);
+}
+
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {

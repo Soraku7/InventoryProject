@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "InventoryWidget.generated.h"
 
+class UButton;
 class UInventoryComponent;
 struct FInsideItem;
 class UInsideItemWidget;
@@ -31,6 +32,9 @@ public:
 
 	void SetTargetWidget(UInsideItemWidget* Widget);
 
+	/**
+	 * UI跟随鼠标
+	 */
 	void TargetWidgetFollowMouse();
 
 	bool GetIsHadWidgetFollowMouse(){return bIsHadWidgetFollowMouse;}
@@ -38,6 +42,9 @@ public:
 	void ResetTargetWidget();
 	
 	void SwitchToWidget(UInsideItemWidget* InsideWidget);
+
+	UFUNCTION(BlueprintCallable)
+	void DropThisItem();
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	TSubclassOf<UOutsideItemWidget> OutsideWidgetsClass;
@@ -55,6 +62,8 @@ private:
 	UScrollBox* ScrollBox;
 	UCanvasPanel* CanvasPanel;
 
+	UButton* DropButton;
+	
 	bool bIsHadWidgetFollowMouse = false;
 	
 	UInsideItemWidget* TargetWidget = nullptr;

@@ -30,6 +30,7 @@ public:
 
 	void SetWidgetVisibility(bool NewValue);
 
+	UStaticMeshComponent* GetMeshComponent(){return MeshComponent;}
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	FText ItemName;

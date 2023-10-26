@@ -83,6 +83,10 @@ public:
 	void PickUpByWidget(UOutsideItemWidget* OutsideItemWidget);
 
 	void SwitchTwoItemDetail(UInsideItemWidget* OriginalWidget , UInsideItemWidget* TargetWidget);
+
+	void DropThisItem(UInsideItemWidget* Widget);
+
+	void SpawnItem(FItemDetails Details);
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;

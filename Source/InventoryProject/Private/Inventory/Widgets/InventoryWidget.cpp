@@ -6,6 +6,7 @@
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/ScrollBox.h"
+#include "Components/Button.h"
 #include "Inventory/InventoryComponent.h"
 #include "Inventory/Widgets/InsideItemWidget.h"
 #include "Inventory/Widgets/OutsideItemWidget.h"
@@ -16,6 +17,9 @@ void UInventoryWidget::Init()
 	ScrollBox = Cast<UScrollBox>(this -> GetWidgetFromName("OutsideItemScrollBox"));
 	CanvasPanel = Cast<UCanvasPanel>(this -> GetWidgetFromName("InsideItemCanvasPanel"));
 
+	DropButton = Cast<UButton>(this -> GetWidgetFromName("DropButton"));
+	DropButton -> SetVisibility(ESlateVisibility::Hidden);
+	
 	InventoryComp = Cast<AInventoryProjectCharacter>(GetOwningPlayer() -> GetCharacter()) -> GetInventoryComponent();
 }
 
@@ -93,6 +97,8 @@ void UInventoryWidget::TargetWidgetFollowMouse()
 	
 	auto NowMousePosition = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
 	Cast<UCanvasPanelSlot>(TargetWidget -> Slot) -> SetPosition(NowMousePosition - TargetWidget -> GetWhenPressedMousePosition() + TargetWidget -> GetSelfPosition());
+
+	DropButton -> SetVisibility(ESlateVisibility::Visible);
 }
 
 void UInventoryWidget::ResetTargetWidget()
@@ -114,4 +120,9 @@ void UInventoryWidget::SwitchToWidget(UInsideItemWidget* InsideWidget)
 	}
 
 	
+}
+
+void UInventoryWidget::DropThisItem()
+{
+	InventoryComp -> DropThisItem(TargetWidget);
 }
