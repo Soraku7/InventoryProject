@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "InventoryWidget.generated.h"
 
+class UMenuBarWidget;
 class UButton;
 class UInventoryComponent;
 struct FInsideItem;
@@ -46,6 +47,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void DropThisItem();
+	
+	void SetHoverWidget(UInsideItemWidget* Widget);
+
+	UFUNCTION(BlueprintCallable)
+	void ShowMenuBar();
+
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	TSubclassOf<UOutsideItemWidget> OutsideWidgetsClass;
@@ -69,4 +76,7 @@ private:
 	
 	UInsideItemWidget* TargetWidget = nullptr;
 	UInventoryComponent* InventoryComp;
+
+	UMenuBarWidget* MenuBarWidget;
+	UInsideItemWidget* HoverWidget = nullptr;
 };

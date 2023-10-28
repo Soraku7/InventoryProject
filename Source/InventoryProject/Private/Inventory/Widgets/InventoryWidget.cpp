@@ -10,6 +10,7 @@
 #include "Inventory/InventoryComponent.h"
 #include "Inventory/Widgets/InsideItemWidget.h"
 #include "Inventory/Widgets/OutsideItemWidget.h"
+#include "Inventory/Widgets/MenuBarWidget.h"
 #include "InventoryProject/InventoryProjectCharacter.h"
 
 void UInventoryWidget::Init()
@@ -19,6 +20,9 @@ void UInventoryWidget::Init()
 
 	DropButton = Cast<UButton>(this -> GetWidgetFromName("DropButton"));
 	DropButton -> SetVisibility(ESlateVisibility::Hidden);
+
+	MenuBarWidget = Cast<UMenuBarWidget>(this -> GetWidgetFromName("MenuBar"));
+	MenuBarWidget -> SetVisibility(ESlateVisibility::Hidden);
 	
 	InventoryComp = Cast<AInventoryProjectCharacter>(GetOwningPlayer() -> GetCharacter()) -> GetInventoryComponent();
 }
@@ -128,4 +132,29 @@ void UInventoryWidget::SwitchToWidget(UInsideItemWidget* InsideWidget)
 void UInventoryWidget::DropThisItem()
 {
 	InventoryComp -> DropThisItem(TargetWidget);
+}
+
+void UInventoryWidget::SetHoverWidget(UInsideItemWidget* Widget)
+{
+	HoverWidget = Widget;
+	
+	MenuBarWidget -> SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UInventoryWidget::ShowMenuBar()
+{
+	if(!HoverWidget)
+	{
+		return;
+	}
+
+	if(MenuBarWidget -> IsVisible())
+	{
+		MenuBarWidget -> SetVisibility(ESlateVisibility::Hidden);
+		return;
+	}
+	
+	auto NowMousePosition = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
+	Cast<UCanvasPanelSlot>(MenuBarWidget -> Slot) -> SetPosition(NowMousePosition);
+	MenuBarWidget -> SetVisibility(ESlateVisibility::Visible);
 }

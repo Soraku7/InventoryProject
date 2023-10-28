@@ -50,3 +50,8 @@ void UInsideItemWidget::BeClick()
 	}
 	
 }
+
+void UInsideItemWidget::BeHovered()
+{
+	InventoryWidget -> SetHoverWidget(this);
+}

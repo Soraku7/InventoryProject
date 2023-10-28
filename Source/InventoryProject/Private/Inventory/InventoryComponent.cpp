@@ -168,6 +168,7 @@ void UInventoryComponent::ToggleInventoryWidget()
 			-> GetController()) -> SetInputMode(FInputModeGameAndUI());
 		Cast<APlayerController>(Cast<AInventoryProjectCharacter>
 			(GetOwner()) -> GetController()) ->SetShowMouseCursor(true);
+		GetWorld() ->GetGameViewport() -> SetMouseCaptureMode(EMouseCaptureMode::NoCapture);
 	}	
 }
 

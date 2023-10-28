@@ -33,6 +33,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void BeClick();
 
+	UFUNCTION(BlueprintCallable)
+	void BeHovered();
+
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	UTexture2D* EmptyImg;
