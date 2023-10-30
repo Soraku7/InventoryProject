@@ -51,7 +51,7 @@ public:
 	void SetHoverWidget(UInsideItemWidget* Widget);
 
 	UFUNCTION(BlueprintCallable)
-	void ShowMenuBar();
+	void ShowMenuBar(); 
 
 protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite)

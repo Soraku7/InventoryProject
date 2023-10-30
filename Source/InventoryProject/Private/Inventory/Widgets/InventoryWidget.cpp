@@ -155,6 +155,6 @@ void UInventoryWidget::ShowMenuBar()
 	}
 	
 	auto NowMousePosition = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
-	Cast<UCanvasPanelSlot>(MenuBarWidget -> Slot) -> SetPosition(NowMousePosition);
+	Cast<UCanvasPanelSlot>(MenuBarWidget -> Slot) -> SetPosition(NowMousePosition -FVector2D(960 , 540));
 	MenuBarWidget -> SetVisibility(ESlateVisibility::Visible);
 }
