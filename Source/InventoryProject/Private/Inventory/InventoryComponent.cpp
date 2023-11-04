@@ -337,6 +337,21 @@ void UInventoryComponent::SpawnItem(FItemDetails Details)
 	DropItem -> GetMeshComponent() -> SetSimulatePhysics(true);
 }
 
+FItemDetails UInventoryComponent::GetItemDetails(UInsideItemWidget* Widget)
+{
+	FItemDetails Empty;
+	
+	for(size_t i = 0 ; i < InsideItemBox.Num() ; i ++)
+	{
+		if(InsideItemBox[i].Widget == Widget)
+		{
+			return InsideItemBox[i].ItemDetails;
+		}
+	}
+
+	return Empty; 
+}
+
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {

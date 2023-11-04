@@ -87,6 +87,8 @@ public:
 	void DropThisItem(UInsideItemWidget* Widget);
 
 	void SpawnItem(FItemDetails Details);
+
+	FItemDetails GetItemDetails(UInsideItemWidget* Widget);
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;
