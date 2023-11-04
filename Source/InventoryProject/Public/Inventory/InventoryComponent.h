@@ -84,7 +84,7 @@ public:
 
 	void SwitchTwoItemDetail(UInsideItemWidget* OriginalWidget , UInsideItemWidget* TargetWidget);
 
-	void DropThisItem(UInsideItemWidget* Widget);
+	bool DropThisItem(UInsideItemWidget* Widget , int32 DropNum);
 
 	void SpawnItem(FItemDetails Details);
 

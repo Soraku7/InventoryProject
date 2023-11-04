@@ -27,6 +27,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void UseItem();
+
+	UFUNCTION(BlueprintCallable)
+	void DropItem();
 	
 private:
 	UTextBlock* ItemName;

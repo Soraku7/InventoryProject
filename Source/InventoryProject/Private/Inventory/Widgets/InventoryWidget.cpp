@@ -133,7 +133,7 @@ void UInventoryWidget::SwitchToWidget(UInsideItemWidget* InsideWidget)
 
 void UInventoryWidget::DropThisItem()
 {
-	InventoryComp -> DropThisItem(TargetWidget);
+	InventoryComp -> DropThisItem(TargetWidget , 1);
 }
 
 void UInventoryWidget::SetHoverWidget(UInsideItemWidget* Widget)

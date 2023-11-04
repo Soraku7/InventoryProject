@@ -317,17 +317,37 @@ void UInventoryComponent::SwitchTwoItemDetail(UInsideItemWidget* OriginalWidget,
 	InventoryWidget -> RefreshInsideItemBox(InsideItemBox);
 }
 
-void UInventoryComponent::DropThisItem(UInsideItemWidget* Widget)
+bool UInventoryComponent::DropThisItem(UInsideItemWidget* Widget , int32 DropNum)
 {
-	for(size_t i = 0 ; i < InsideItemBox.Num() ; i ++)
+	for (size_t i = 0; i < InsideItemBox.Num(); i++)
 	{
-		if(Widget == InsideItemBox[i].Widget)
+		if (InsideItemBox[i].Widget == Widget)
 		{
-			SpawnItem(InsideItemBox[i].ItemDetails);
-			InsideItemBox[i].ItemDetails.ID = -1;
-			InventoryWidget -> RefreshInsideItemBox(InsideItemBox);
+			auto TempItemDetails = InsideItemBox[i].ItemDetails;
+			auto Num = FMath::Clamp(TempItemDetails.Num - DropNum, 0, TempItemDetails.Num);
+
+			if (Num == 0)
+			{
+				SpawnItem(TempItemDetails);
+
+				InsideItemBox[i].ItemDetails.ID = -1;
+
+				InventoryWidget->RefreshInsideItemBox(InsideItemBox);
+				return false;
+			}
+			else
+			{
+				TempItemDetails.Num = FMath::Clamp(DropNum,0, TempItemDetails.Num);
+				SpawnItem(TempItemDetails);
+				InsideItemBox[i].ItemDetails.Num -= TempItemDetails.Num;
+
+				InventoryWidget->RefreshInsideItemBox(InsideItemBox);
+				return true;
+			}
 		}
 	}
+
+	return false;
 }
 
 void UInventoryComponent::SpawnItem(FItemDetails Details)

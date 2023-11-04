@@ -3,6 +3,7 @@
 
 #include "Inventory/Widgets/MenuBarWidget.h"
 
+#include "IDetailTreeNode.h"
 #include "Components/TextBlock.h"
 #include "Components/EditableText.h"
 #include "Inventory/InventoryComponent.h"
@@ -51,5 +52,13 @@ void UMenuBarWidget::UseItem()
 
 	InventoryComponent -> SetItemDetails(TargetWidget , Details);
 	InventoryWidget -> RefreshInsideItemBox(InventoryComponent -> GetInsideItemBox());
+	return;
+}
+
+void UMenuBarWidget::DropItem()
+{
+	InventoryComponent -> DropThisItem(TargetWidget , GetNum());
+	this -> SetVisibility(ESlateVisibility::Hidden);
+
 	return;
 }
