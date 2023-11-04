@@ -352,6 +352,18 @@ FItemDetails UInventoryComponent::GetItemDetails(UInsideItemWidget* Widget)
 	return Empty; 
 }
 
+void UInventoryComponent::SetItemDetails(UInsideItemWidget* Widget, FItemDetails NewItemDetails)
+{
+	for(size_t i = 0 ; i < InsideItemBox.Num() ; i ++)
+	{
+		if(InsideItemBox[i].Widget == Widget)
+		{
+			InsideItemBox[i].ItemDetails = NewItemDetails;
+		}
+	}
+
+}
+
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {

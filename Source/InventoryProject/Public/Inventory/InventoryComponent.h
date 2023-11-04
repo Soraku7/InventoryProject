@@ -89,6 +89,10 @@ public:
 	void SpawnItem(FItemDetails Details);
 
 	FItemDetails GetItemDetails(UInsideItemWidget* Widget);
+
+	void SetItemDetails(UInsideItemWidget* Widget , FItemDetails NewItemDetails);
+
+	TArray<FInsideItem>& GetInsideItemBox(){return InsideItemBox;}
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;

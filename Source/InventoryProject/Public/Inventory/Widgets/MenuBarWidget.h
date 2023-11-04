@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "MenuBarWidget.generated.h"
 
+class UInventoryWidget;
+class UEditableText;
 class UInsideItemWidget;
 class UInventoryComponent;
 class UTextBlock;
@@ -18,14 +20,22 @@ class INVENTORYPROJECT_API UMenuBarWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	void SetInventoryComponent(UInventoryComponent* Component);
-	void SetWidget(UInsideItemWidget* Widget);
-	void Init();
+	void InitWidget(UInventoryComponent* Component , UInventoryWidget* Widget);
+	void RefreshItemDetails(UInsideItemWidget* Widget);
+
+	int GetNum();
+	
+	UFUNCTION(BlueprintCallable)
+	void UseItem();
 	
 private:
 	UTextBlock* ItemName;
 
-	UInsideItemWidget* HoveredWidget;
-
 	UInventoryComponent* InventoryComponent;
+
+	UEditableText* NumText;
+	
+	UInsideItemWidget* TargetWidget;
+
+	UInventoryWidget* InventoryWidget;
 };
